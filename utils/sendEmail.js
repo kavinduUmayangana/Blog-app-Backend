@@ -1,13 +1,15 @@
 require('dotenv').config();
 const nodemail=require('nodemailer');
+const {senderEmail,emailPassword} =require('../config/kyes');
+
 const sendEmail=async ({emailTo,subject,code,content})=>{
     const transporter=nodemail.createTransport({
         host:"smtp.gmail.com",
         port:587,
         secure:false,
         auth:{
-            user:'kavinduumayanganauk@gmail.com',
-            pass:'jcnu rgfq ruke qosz',
+            user:senderEmail,
+            pass:emailPassword,
         },
     });
     const message={
