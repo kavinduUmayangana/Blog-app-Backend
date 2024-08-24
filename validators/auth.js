@@ -13,4 +13,15 @@ check('password')
 .notEmpty()
 .withMessage('password is required'),
 ];
-module.exports={signupValidator};
+const signinValidator=[
+    check('email')
+    .isEmail()
+    .withMessage('invalid email')
+    .notEmpty()
+    .withMessage('email is required'),
+    check('password').notEmpty().withMessage('passsword is required')
+];
+const emailValidator=[
+    check('email').isEmail().withMessage('Invalid email').notEmpty().withMessage('Email is required')
+]
+module.exports={signupValidator,signinValidator,emailValidator};
