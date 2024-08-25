@@ -13,4 +13,5 @@ jwtSecret,
 });
 return token;
 };
+
 module.exports=generateToken;
