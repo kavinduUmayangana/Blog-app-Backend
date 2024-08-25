@@ -195,15 +195,25 @@ await user.save();
     catch(error)
     {next(error)}
 };
+
+
+
 const updateProfile=async (req,res,next)=>{
     try{
 const {_id}=req.user;
 const {name,email}=req.body;
-const user=await User.findById(_id);
+const user=await User.findById(_id).select('-password -verificationCode -forgotPasswordCode');
 if(!user){
     res.code=404;
     throw new Error('user not found');
 
+}
+if(email){
+    const isUserExist=await User.findOne({email});
+    if(isUserExist && isUserExist.email === email && String(user._id) !== String(isUserExist._id) ){
+       res.code =400;
+        throw new Error("Email already exist")
+    }
 }
 user.name = name ? name:user.name;
 user.email = email ? email:user.email;
