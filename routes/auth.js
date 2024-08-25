@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 const  { authController }=require('../controllers');
-const {signupValidator,signinValidator,changePasswordValidator,recoverPasswordValidator,verifyUserValidator,emailValidator}=require('../validators/auth');
+const {signupValidator,signinValidator,updateProfileValidator,changePasswordValidator,recoverPasswordValidator,verifyUserValidator,emailValidator}=require('../validators/auth');
 const validate=require('../validators/validate')
 const isAuth=require('../middlewares/isAuth')
 router.post('/signup',signupValidator,validate,authController.signup)
@@ -11,6 +11,7 @@ router.post('/verify-user',verifyUserValidator,validate,authController.verifyUse
 router.post('/forgot-password-code',emailValidator,validate,authController.forgotPasswordCode)
 router.post('/recover-password',recoverPasswordValidator,validate,authController.recoverPassword)
 router.put('/change-password',changePasswordValidator,validate,isAuth,authController.changePassword)
+router.put('/update-profile',isAuth,updateProfileValidator,validate,authController.updateProfile)
 module.exports=router;
 
 

@@ -195,4 +195,34 @@ await user.save();
     catch(error)
     {next(error)}
 };
-module.exports={signup,signin,changePassword,verifyCode,verifyUser,forgotPasswordCode,recoverPassword};
+const updateProfile=async (req,res,next)=>{
+    try{
+const {_id}=req.user;
+const {name,email}=req.body;
+const user=await User.findById(_id);
+if(!user){
+    res.code=404;
+    throw new Error('user not found');
+
+}
+user.name = name ? name:user.name;
+user.email = email ? email:user.email;
+
+if(email){
+    user.isVerified=false
+}
+await user.save();
+res
+.status(200)
+.json({
+    code :200,
+    status:true,
+    message:'user profile updated successfully',
+    data:{user},
+})
+    }catch(error)
+    {
+        next(error)
+    }
+}
+module.exports={signup,signin,updateProfile,changePassword,verifyCode,verifyUser,forgotPasswordCode,recoverPassword};
