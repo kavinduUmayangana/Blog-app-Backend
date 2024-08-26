@@ -5,7 +5,7 @@ const categorySchema =mongoose.Schema({
         required:true
          },
     desc:String,
-    updateBy:{
+    updatedBy:{
         type:mongoose.Types.ObjectId,
         ref:"user",required:true
     }
