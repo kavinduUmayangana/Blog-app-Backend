@@ -5,6 +5,7 @@ const generateToken=require('../utils/generateToken')
 const generateCode=require("../utils/generateCode")
 const sendEmail=require('../utils/sendEmail')
 
+
 const signup=async(req,res,next)=>{
 try{
 const {name,email,password,role}=req.body;
